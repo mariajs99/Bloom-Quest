@@ -40,7 +40,7 @@ function startGame() {
     //gameLoop()
 
     // Aquí irá tu lógica del juego
-    console.log("Game loop funcionando");
+    console.log("Game loop funcionando"); 
   }, Math.round(1000/60)); //El juego va a 60 fps
 
   //5. Iniciamos otros intervalos del juego

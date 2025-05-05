@@ -14,13 +14,13 @@ body {
   }
   
   .container {
-    display: flex;
+    display: flex; 
     flex-direction: column;
     justify-content: center;
     align-items: center;
     margin: 50px;
   }
-  
+
   #game-screen, #gameover-screen {
     display: none;
   }

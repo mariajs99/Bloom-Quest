@@ -10,7 +10,7 @@ class Recolector {
         this.y = 60;
         this.w = 70;
         this.h = 75;
-        this.speed = 20;
+        this.speed = 20; 
 
         //Con esto definimos el tamaño inicial de nuestro personaje en la gamebox
         this.node.style.width = `${this.w}px`;
