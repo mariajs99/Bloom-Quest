@@ -4,18 +4,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles/styles.css"></link>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Jersey+10&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Montserrat:ital,wght@0,500;1,500&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Special+Gothic&display=swap');
+    </style>
     <title>Bloom Quest</title>
 </head>
 
 <!--PANTALLA DE INICIO-->
 
 <div id="start-screen" class="container">
+    <div id="lifes">
+        <img src="images/tresVidas.png"/>
+    </div>
 
-    <img src="" alt="image-background-and-instructions"/> <!--Crear una imagen con todos los elementos unidos correspondientes a la pantalla de inicio-->
-
-    <button id="start-button">
-        <img src="" alt="start-button"/>
-    </button>
+    <h1 id="main-title">Bloom Quest</h1>
+    
+    <div>
+        <button id="start-button">
+            <img src="images/botonPlay.png" alt="start-button"/>
+        </button>
+    </div>
+    
+    <div id="instructions">
+        <img src="" alt="instructions"/> <!--Crear una imagen con todos los elementos unidos correspondientes a la pantalla de inicio-->
+    </div>
 
 </div>
  
@@ -23,7 +35,6 @@
 
 <div id="game-screen" class="container">
      <!-- Elementos del juego como score, vidas, etc deberia ir aqui -->
-
       <div id="total-score">
         <h3>Score: <span> 0 </span></h3>
       </div>
