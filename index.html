@@ -1,16 +1,53 @@
 <!DOCTYPE html>
-<html lang="en">
+<lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles/styles.css"></link>
     <title>Bloom Quest</title>
 </head>
-<body>
 
+<!--PANTALLA DE INICIO-->
 
+<div id="start-screen" class="container">
 
+    <img src="" alt="image-background-and-instructions"/> <!--Crear una imagen con todos los elementos unidos correspondientes a la pantalla de inicio-->
 
+    <button id="start-button">
+        <img src="" alt="start-button"/>
+    </button>
+
+</div>
+
+<!--PANTALLA DE JUEGO-->
+
+<div id="game-screen" class="container">
+     <!-- Elementos del juego como score, vidas, etc deberia ir aqui -->
+
+      <div id="total-score">
+        <h3>Score: <span> 0 </span></h3>
+      </div>
+
+      <div id="game-box">
+        <!-- Los elementos del juego como ingredientes, bichos, personaje y bonus serán añadidos desde JS con manipulación de DOM -->
+      </div>
+</div>
+    
+<!--PANTALLA FINAL-->
+
+<div id="gameover-screen" class="container">
+
+    <img src="" alt="image-gameover"/>
+
+    <button id="restart-button">
+        <img src="" alt="restart-button"/>
+    </button>
+
+</div>
 
     <script src="js/main.js"></script>
+    <script src="js/main-character.js"></script>
+
+
 </body>
 </html>
