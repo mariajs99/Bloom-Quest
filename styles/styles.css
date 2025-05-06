@@ -1,8 +1,8 @@
 body {
   margin: 0;
   background-color: lightgray;
-  height: 100%;
-  display: block;
+  height: 100vh;
+  display: flex;
 }
 
 /*PANTALLA DE INICIO*/
@@ -16,13 +16,82 @@ body {
   src: url(https://fonts.gstatic.com/s/jersey10/v3/GftH7vZKsggXMf9n_J5n_5jh.woff2)
     format("woff2");
   font-size: 90px;
+  margin: 10px;
 }
 
-#start-button img{
-align-items: center;
-  width: 100px;
-  height: 50px;
+#teclas {
+    position: absolute;
+    top: 140px;
+    right: 600px;
 }
+
+#teclas p {
+    color: white;
+    font-family: "Jersey 10";
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url(https://fonts.gstatic.com/s/jersey10/v3/GftH7vZKsggXMf9n_J5n_5jh.woff2)
+      format("woff2");
+      margin: 0;
+}
+
+#teclas img {
+    margin-left: 35px;
+    margin-top: 10px;
+
+}
+
+
+#instructions {
+    background-color: rgb(42, 44, 153);
+    color: white;
+    font-family: "Jersey 10";
+    font-style: normal;
+    font-weight: 300;
+    src: url(https://fonts.gstatic.com/s/jersey10/v3/GftH7vZKsggXMf9n_J5n_5jh.woff2)
+      format("woff2");
+    font-size: 15px;
+    padding:10px;
+    border: 5px;
+    border-radius: 10px;
+    text-align: center;
+    margin-top: 40px;
+}
+
+#instructions h3 {
+    color: white;
+    font-family: "Jersey 10";
+    font-style: normal;
+    font-weight: 300;
+    src: url(https://fonts.gstatic.com/s/jersey10/v3/GftH7vZKsggXMf9n_J5n_5jh.woff2)
+      format("woff2");
+    font-size: 30px;
+    margin: 0;
+    text-align: center;
+}
+
+#instructions ul {
+    list-style-type: none;
+    text-align: start;
+}
+
+#start-button {
+    background-color: rgb(255, 181, 230);
+    border-radius: 10px;
+    cursor: pointer; 
+    padding: 0;  
+    margin: 15px;
+    width: 130px;
+    height: 50px;
+    font-family: "Jersey 10";
+    font-style: normal;
+    font-weight: 300;
+    src: url(https://fonts.gstatic.com/s/jersey10/v3/GftH7vZKsggXMf9n_J5n_5jh.woff2)
+      format("woff2");
+    font-size: 30px;
+}
+
 
 #lifes {
   position: absolute;
@@ -43,17 +112,17 @@ align-items: center;
   margin: 50px;
 }
 
-
-
 #start-screen {
-  background-image: url("../images/background-startGame.png");
+  position: relative;
+  background-image: url("../images/background.sky.avif");
   background-color: darkgray;
 
-  width: 600px;
-  height: 400px;
+  width: 800px;
+  height: 500px;
 
   background-position: center;
   background-size: cover;
+
 }
 
 /*PANTALLA DEL JUEGO*/
@@ -63,11 +132,10 @@ align-items: center;
   display: none;
 }
 
-
 #game-box {
   background-color: darkgray;
-  width: 600px;
-  height: 400px;
+  width: 800px;
+  height: 500px;
 
   position: relative; /* permite posicionar los elementos de forma absoluta dentro del game-box */
   overflow: hidden; /* previene que los elementos salgan visualmente del game-box */

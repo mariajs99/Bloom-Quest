@@ -15,23 +15,22 @@ const restartButtonNode = document.querySelector("#restart-button");
 const gameBoxNode = document.querySelector("#game-box");
 
 
-
-
 //!Variables globales del juego
 
 let recolectorObj = null; // Esto es para poder agregar el obj del recolector aqui, pero que en todo mi código yo pueda acceder a esta variable facilmente.
 
+let bichosArr = [];
 
+let vidas = 3;
 
 
 //!Funciones globales del juego
 
 function startGame() {
-  startScreenNode.style.display = "none"; //1. Ocultar la pantalla inicial
+  startScreenNode.style.display = "none"; // Ocultar la pantalla inicial
+  gameScreenNode.style.display = "flex"; //  Mostrar la pantalla de juego
 
-  gameScreenNode.style.display = "flex"; //2. Mostrar la pantalla de juego
-
-  recolectorObj = new Recolector(gameBoxNode); //3. Añadimos los elementos iniciales del juego
+  recolectorObj = new Recolector(gameBoxNode); //3. Añadimos el recolector al juego
 
   console.log(recolectorObj);
 
@@ -39,12 +38,64 @@ function startGame() {
     //4. Iniciamos el intervalo principal del juego
     //gameLoop()
 
+
     // Aquí irá tu lógica del juego
-    console.log("Game loop funcionando"); 
-  }, Math.round(1000/60)); //El juego va a 60 fps
+    console.log("Game loop funcionando");
+  }, Math.round(1000 / 60)); //El juego va a 60 fps
 
   //5. Iniciamos otros intervalos del juego
+  gestionarBichos(); //crear bichos en el juego
 }
+
+function gestionarBichos() {
+  setInterval(() => {
+    // Crear nuevos bichos cada cierto tiempo
+    if (Math.random() < 0.01) {
+      // probabilidad de aparición, de forma aleatoria
+      const nuevoBicho = new Bichos(gameBoxNode);
+      bichosArr.push(nuevoBicho);
+    }
+
+   
+    bichosArr.forEach((bicho, i) => { //Los mueve
+      bicho.movimientoBichos();
+
+      if (bicho.bichoEstaFuera()) { //Los elimina si salen
+        bicho.desapareceBicho();
+        bichosArr.splice(i, 1);
+      }
+      //Colisión con el personaje
+      if (colision(recolectorObj, bicho)) {  //Detecta colisiones
+        console.log("Colisionando");
+        bicho.desapareceBicho();
+        bichosArr.splice(i, 1);
+        
+        //Aqi meto lo de quitar vidas
+        vidas--;
+        console.log("Vidas restantes:", vidas);
+
+        if (vidas <= 0) {
+            gameOver();
+          };
+      };
+    });
+  }, 20);
+};
+
+//Detecta si dos elementos colisionan, basándose en sus posiciones y tamaños.
+function colision(recolectorObj, bichosObj) {
+    return (
+        recolectorObj.x < bichosObj.x + bichosObj.w &&
+        recolectorObj.x + recolectorObj.w > bichosObj.x &&
+        recolectorObj.y < bichosObj.y + bichosObj.h &&
+        recolectorObj.y + recolectorObj.h > bichosObj.y
+      );
+};
+
+function gameOver() {
+    gameScreenNode.style.display = "none";
+    gameOverScreenNode.style.display = "flex";
+  }
 
 //!Event Listeners
 

@@ -8,8 +8,8 @@ class Recolector {
 
         this.x = 80;
         this.y = 60;
-        this.w = 70;
-        this.h = 75;
+        this.w = 100;
+        this.h = 105;
         this.speed = 20; 
 
         //Con esto definimos el tamaño inicial de nuestro personaje en la gamebox
@@ -30,21 +30,29 @@ class Recolector {
 
     //Métodos y acciones
         //todo Nodos de movimiento con las teclas asdw
-         mover (direction) {
+         mover (direction) { //Permite mover al personaje en la dirección presionada (WASD) sin salirse de la gameBox.
             if(direction === "w") {
                 this.y = Math.max(0, this.y - this.speed);
             }
             if(direction === "s") {
-                this.y = Math.min(400-this.h, this.y + this.speed);
+                this.y = Math.min(500 - this.h, this.y + this.speed);
             }
             if(direction === "a") {
                 this.x = Math.max (0, this.x - this.speed);
             }
             if(direction === "d") {
-                this.x = Math.min (600 - this.w, this.x + this.speed);
+                this.x = Math.min (800 - this.w, this.x + this.speed);
             }
         
             this.node.style.top = this.y + "px";
             this.node.style.left = this.x + "px";
         }
+}
+
+
+class Vidas {
+    constructor() {
+        this.vidas = 3;
+
+    }
 }
