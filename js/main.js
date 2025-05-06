@@ -16,7 +16,8 @@ const gameBoxNode = document.querySelector("#game-box");
 
 //*Score
 
-const scoreNode = document.querySelector("#total-score");
+const scoreNode = document.querySelector("#score");
+const finalScoreNode = document.querySelector("#total-score");
 
 //!Variables globales del juego
 
@@ -35,7 +36,6 @@ let gameIntervalId = null;
 
 gameBoxNode.innerHTML = "";
 
-scoreNode.textContent = score;
 
 //!Funciones globales del juego
 
@@ -86,7 +86,7 @@ function gameLoop() {
       bicho.desapareceBicho();
       bichosArr.splice(i, 1);
 
-      //Aquí meto lo de quitar vidas
+      //Contador de vidas restantes
       vidas--;
       
       console.log("Vidas restantes:", vidas);
@@ -117,7 +117,7 @@ function gameLoop() {
   });
 }
 
-//Detecta si dos elementos colisionan, basándose en sus posiciones y tamaños.
+//Detecta si los elementos colisionan, basándose en sus posiciones y tamaños.
 function colision(recolectorObj, elementosQueColisionan) {
 
   //Funciona tanto para la colisión con los bichos y con los ingredientes (y con el bonus)
@@ -133,6 +133,7 @@ function gameOver() {
   clearInterval(gameIntervalId);
   gameScreenNode.style.display = "none";
   gameOverScreenNode.style.display = "flex";
+  finalScoreNode.textContent = score;
 }
 
 //!Event Listeners
@@ -172,9 +173,9 @@ document.addEventListener("keydown", (e) => {
 - Fruta bonus que aparecen(spawn)
 - Fruta bonus que desaparecen(despawn)
 
-- Game-over
+- ////Game-over
 - Reiniciar
-- Score
+- ////Score 
 
 
 Bonus:

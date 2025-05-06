@@ -3,7 +3,7 @@ class Ingredientes {
     this.node = document.createElement("img");
 
     //Alternar entre dos ingredientes
-    const ingredientes = ["./images/hongo.png", "./images/hierbas.webp"];
+    const ingredientes = ["./images/setas magicas.png", "./images/hierbas.webp"];
     const alternarIngredientes = Math.floor(Math.random() * ingredientes.length);
 
     this.node.src = ingredientes[alternarIngredientes];
@@ -11,7 +11,7 @@ class Ingredientes {
     //Crear posición aleatoria dentro del gamebox
     this.x = Math.random() * 800; // para hacer que su posición inicial sea aleatoria ANCHO
     this.y = Math.random() * 500; //Lo mismo, se hace en las dos porque pueden aparecer en cualquier parte del ancho y alto de la pantalla ALTO
-    this.w = 70; //tamaño de los ingredientes
+    this.w = 60; //tamaño de los ingredientes
     this.h = 60;
 
     // Tiempo aleatorio de aparición (desaparece después de cierto tiempo)

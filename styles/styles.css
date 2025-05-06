@@ -3,11 +3,8 @@ body {
   background-color: lightgray;
   height: 100vh;
   display: flex;
-}
+  justify-content: center;
 
-/*PANTALLA DE INICIO*/
-
-#main-title {
   color: white;
   font-family: "Jersey 10";
   font-style: normal;
@@ -15,36 +12,40 @@ body {
   font-display: swap;
   src: url(https://fonts.gstatic.com/s/jersey10/v3/GftH7vZKsggXMf9n_J5n_5jh.woff2)
     format("woff2");
+}
+
+/*PANTALLA DE INICIO*/
+
+#main-title {
+  
   font-size: 90px;
   margin: 10px;
 }
 
 #teclas {
     position: absolute;
-    top: 140px;
-    right: 600px;
+    top: 120px;
+    right: 590px;
+    border: 5px;
+    border-radius: 10px;
+    border-width: 1px;
+    background-color:rgba(42, 44, 153, 0.645);
+  
 }
 
 #teclas p {
-    color: white;
-    font-family: "Jersey 10";
-    font-style: normal;
-    font-weight: 400;
-    font-display: swap;
-    src: url(https://fonts.gstatic.com/s/jersey10/v3/GftH7vZKsggXMf9n_J5n_5jh.woff2)
-      format("woff2");
-      margin: 0;
+
+      margin: 5px;
 }
 
 #teclas img {
-    margin-left: 35px;
-    margin-top: 10px;
+    margin-left: 45px;
+    margin-top: 5px;
 
 }
 
-
 #instructions {
-    background-color: rgb(42, 44, 153);
+    background-color: rgba(42, 44, 153, 0.645);
     color: white;
     font-family: "Jersey 10";
     font-style: normal;
@@ -67,8 +68,12 @@ body {
     src: url(https://fonts.gstatic.com/s/jersey10/v3/GftH7vZKsggXMf9n_J5n_5jh.woff2)
       format("woff2");
     font-size: 30px;
-    margin: 0;
+    margin: 5px;
     text-align: center;
+}
+
+#instructions p {
+  margin: 5px;
 }
 
 #instructions ul {
@@ -77,7 +82,7 @@ body {
 }
 
 #start-button {
-    background-color: rgb(255, 181, 230);
+    background-color: rgb(206, 151, 249);
     border-radius: 10px;
     cursor: pointer; 
     padding: 0;  
@@ -89,7 +94,7 @@ body {
     font-weight: 300;
     src: url(https://fonts.gstatic.com/s/jersey10/v3/GftH7vZKsggXMf9n_J5n_5jh.woff2)
       format("woff2");
-    font-size: 30px;
+    font-size: 40px;
 }
 
 
@@ -150,4 +155,39 @@ body {
 
 #game-box * {
   pointer-events: none; /* previene que todos los elementos del game-box sean arrastrados al clickar sobre ellos */
+}
+
+/*PANTALLA GAME OVER*/
+
+#gameover-screen {
+  background-color: darkgray;
+  color: white;
+  width: 800px;
+  height: 500px;
+
+  position: relative; /* permite posicionar los elementos de forma absoluta dentro del game-box */
+  overflow: hidden; /* previene que los elementos salgan visualmente del game-box */
+  user-select: none; /* previene que los elementos del game-box sean resaltados al hacer click */
+
+  background-image: url("../images/gameOver.webp");
+  background-position: center;
+  background-size: cover;
+
+  border: 2px solid black;
+}
+
+#gameover-screen h2 {
+  font-size: 100px;
+  margin: 10px;
+}
+
+#gameover-screen h3 {
+  font-size: 50px;
+  margin: 10px;
+}
+
+#gameover-screen h4 {
+  position: relative;
+  font-size: 30px;
+  bottom: 60px;
 }

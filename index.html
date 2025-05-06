@@ -10,6 +10,8 @@
     <title>Bloom Quest</title>
 </head>
 
+<body>
+    
 <!--PANTALLA DE INICIO-->
 
 <div id="start-screen" class="container">
@@ -26,18 +28,17 @@
     </div>
 
     <div>
-        <button id="start-button">
-            START
-            <!--   <img src="images/botones.png" alt="start-button"/>  -->
-        </button>
+        <button id="start-button">START</button>
     </div>
     
     <div id="instructions">
         <h3>🎮 Cómo jugar </h3>
-        <p>Serás un joven recolector que se adentrará en el bosque en busca de ingredientes para pociones.</p>
+        <p>Un joven recolector quiere adentrarse en el bosque en busca de ingredientes para sus pociones.</p>
+        <p>¡Únete a la aventura!</p>
+
        <ul>
         <li>🍀 Recolecta hierbas curativas y setas mágicas.</li>
-        <li>🌟 Con suerte, te toparás con frutas misteriosas que te falicitarán tu búsqueda. </li>
+        <li>🌟 ¡Atento! Aparecerán algunas frutas misteriosas que te falicitarán tu búsqueda. </li>
         <li>👾 Pero, ¡cuidado! Evita a los bichos o te quitarán tus vidas.</li>
         <li>​💔 Si te golpean tres veces… ¡Game Over!</li>
         <li>🔁 Pero no te preocupes, ¡siempre podrás intentarlo de nuevo!</li>
@@ -51,7 +52,7 @@
 <div id="game-screen" class="container">
      <!-- Elementos del juego como score, vidas, etc deberia ir aqui -->
       <div >
-        <h3>Score: <span id="total-score"> 0 </span></h3>
+        <h3>Score: <span id="score"> 0 </span></h3>
       </div>
 
       <div id="game-box">
@@ -63,10 +64,15 @@
 
 <div id="gameover-screen" class="container">
 
-    <img src="images/gameover.png" alt="image-gameover"/>
+    <div >
+        <h4>Total score: <span id="total-score"> 0 </span></h3>
+    </div>
+
+    <h2>Game Over</h2>
+    <h3>Play again?</h3>
 
     <button id="restart-button">
-        <img src="" alt="restart-button"/>
+        YES
     </button>
 
 </div>
@@ -79,4 +85,4 @@
 
 
 </body>
-</htmddddl>
+</html>
