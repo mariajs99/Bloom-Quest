@@ -14,88 +14,126 @@ const restartButtonNode = document.querySelector("#restart-button");
 
 const gameBoxNode = document.querySelector("#game-box");
 
+//*Score
+
+const scoreNode = document.querySelector("#total-score");
 
 //!Variables globales del juego
 
 let recolectorObj = null; // Esto es para poder agregar el obj del recolector aqui, pero que en todo mi código yo pueda acceder a esta variable facilmente.
 
+// let tuberiaObj = null;
 let bichosArr = [];
+
+let ingredientesArr = [];
 
 let vidas = 3;
 
+let score = 0;
+
+let gameIntervalId = null;
+
+gameBoxNode.innerHTML = "";
+
+scoreNode.textContent = score;
 
 //!Funciones globales del juego
 
+//*FUNCIÓN PRINCIPAL DEL JUEGO
+
 function startGame() {
+
   startScreenNode.style.display = "none"; // Ocultar la pantalla inicial
+
   gameScreenNode.style.display = "flex"; //  Mostrar la pantalla de juego
 
   recolectorObj = new Recolector(gameBoxNode); //3. Añadimos el recolector al juego
 
-  console.log(recolectorObj);
+  // Bucle principal del juego - gameLoop() (60fps)
 
-  setInterval(() => {
-    //4. Iniciamos el intervalo principal del juego
-    //gameLoop()
-
-
-    // Aquí irá tu lógica del juego
+  gameIntervalId = setInterval(() => {
+    // GameIntervalId contiene toda la lógica del juego, que es todo lo que hay en gameLoop()
     console.log("Game loop funcionando");
-  }, Math.round(1000 / 60)); //El juego va a 60 fps
 
-  //5. Iniciamos otros intervalos del juego
-  gestionarBichos(); //crear bichos en el juego
+    gameLoop();
+
+  }, Math.round(1000 / 60)); //El juego va a 60 fps
 }
 
-function gestionarBichos() {
-  setInterval(() => {
-    // Crear nuevos bichos cada cierto tiempo
-    if (Math.random() < 0.01) {
-      // probabilidad de aparición, de forma aleatoria
-      const nuevoBicho = new Bichos(gameBoxNode);
-      bichosArr.push(nuevoBicho);
+function gameLoop() {
+  // Crear bichos aleatorios
+  if (Math.random() < 0.007) {
+    const nuevoBicho = new Bichos(gameBoxNode);
+    bichosArr.push(nuevoBicho);
+  }
+
+  // Mover bichos y gestionar colisiones
+  bichosArr.forEach((bicho, i) => {
+    //Los mueve
+    bicho.movimientoBichos();
+
+    if (bicho.bichoEstaFuera()) {
+      //Los elimina si salen
+      bicho.desapareceBicho();
+      bichosArr.splice(i, 1);
     }
+    //Colisión con el personaje
+    if (colision(recolectorObj, bicho)) {
+      //Detecta colisiones
 
-   
-    bichosArr.forEach((bicho, i) => { //Los mueve
-      bicho.movimientoBichos();
+      //TODO console.log("Colisionando");
 
-      if (bicho.bichoEstaFuera()) { //Los elimina si salen
-        bicho.desapareceBicho();
-        bichosArr.splice(i, 1);
+      bicho.desapareceBicho();
+      bichosArr.splice(i, 1);
+
+      //Aquí meto lo de quitar vidas
+      vidas--;
+      
+      console.log("Vidas restantes:", vidas);
+
+      if (vidas <= 0) {
+        gameOver();
       }
-      //Colisión con el personaje
-      if (colision(recolectorObj, bicho)) {  //Detecta colisiones
-        console.log("Colisionando");
-        bicho.desapareceBicho();
-        bichosArr.splice(i, 1);
-        
-        //Aqi meto lo de quitar vidas
-        vidas--;
-        console.log("Vidas restantes:", vidas);
+    }
+  });
 
-        if (vidas <= 0) {
-            gameOver();
-          };
-      };
-    });
-  }, 20);
-};
+  // Crear ingredientes aleatoriamente
+  if (Math.random() < 0.015) {
+    const nuevoIngrediente = new Ingredientes(gameBoxNode);
+    ingredientesArr.push(nuevoIngrediente);
+  }
+
+  //Gestionar las colisiones con los ingredientes
+  ingredientesArr.forEach((ingrediente, i) => {
+    if (colision(recolectorObj, ingrediente)) {
+      //TODO console.log("¡Colisión con ingrediente!");
+      ingrediente.desapareceIngrediente();
+      ingredientesArr.splice(i, 1);
+
+      // Aquí puedo colocar lo de sumar puntos
+      score += 10;
+      scoreNode.textContent = score;
+    }
+  });
+}
 
 //Detecta si dos elementos colisionan, basándose en sus posiciones y tamaños.
-function colision(recolectorObj, bichosObj) {
-    return (
-        recolectorObj.x < bichosObj.x + bichosObj.w &&
-        recolectorObj.x + recolectorObj.w > bichosObj.x &&
-        recolectorObj.y < bichosObj.y + bichosObj.h &&
-        recolectorObj.y + recolectorObj.h > bichosObj.y
-      );
-};
+function colision(recolectorObj, elementosQueColisionan) {
+
+  //Funciona tanto para la colisión con los bichos y con los ingredientes (y con el bonus)
+  return (
+    recolectorObj.x < elementosQueColisionan.x + elementosQueColisionan.w &&
+    recolectorObj.x + recolectorObj.w > elementosQueColisionan.x &&
+    recolectorObj.y < elementosQueColisionan.y + elementosQueColisionan.h &&
+    recolectorObj.y + recolectorObj.h > elementosQueColisionan.y
+  );
+}
 
 function gameOver() {
-    gameScreenNode.style.display = "none";
-    gameOverScreenNode.style.display = "flex";
-  }
+  clearInterval(gameIntervalId);
+  gameScreenNode.style.display = "none";
+  gameOverScreenNode.style.display = "flex";
+}
 
 //!Event Listeners
 
@@ -103,15 +141,12 @@ startButtonNode.addEventListener("click", () => {
   startGame();
 });
 
-gameBoxNode.addEventListener("click", () => {
-  recolectorObj;
-});
 
 document.addEventListener("keydown", (e) => {
   const key = e.key.toLowerCase();
 
   if (["w", "a", "s", "d"].includes(key) && recolectorObj) {
-    recolectorObj.mover(key);
+    recolectorObj.moverRecolector(key);
   }
 });
 
@@ -119,20 +154,20 @@ document.addEventListener("keydown", (e) => {
 /*
 - ////Fondo
 - ////Personaje (x, y, h, w, speed, nodo)
-- Bichos (x, y, h, w, speed, nodo)
-- Ingredientes (x, y, h, w, speed, nodo)
+- ////Bichos (x, y, h, w, speed, nodo)
+- ////Ingredientes (x, y, h, w, speed, nodo)
 - Bonus (x, y, h, w, speed, nodo)
 
-- Colisión entre personaje y bichos
-- Colisión entre personaje e ingredientes
+- ////Colisión entre personaje y bichos
+- ////Colisión entre personaje e ingredientes
 - Colisión entre personaje y bonus
 
-- Automatic movement()
-- Bichos que aparecen(spawn)
-- Bichos que desaparecen(despawn)
+- ////Movimiento del personaje
+- ////Bichos que aparecen(spawn)
+- ////Bichos que desaparecen(despawn)
 
-- Ingredientes que aparecen(spawn)
-- Ingredientes que desaparecen(despawn)
+- ////Ingredientes que aparecen(spawn)
+- ////Ingredientes que desaparecen(despawn)
 
 - Fruta bonus que aparecen(spawn)
 - Fruta bonus que desaparecen(despawn)
