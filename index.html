@@ -51,13 +51,21 @@
 
 <div id="game-screen" class="container">
      <!-- Elementos del juego como score, vidas, etc deberia ir aqui -->
-      <div >
-        <h3>Score: <span id="score"> 0 </span></h3>
-      </div>
-
+      
       <div id="game-box">
         <!-- Los elementos del juego como ingredientes, bichos, personaje y bonus serán añadidos desde JS con manipulación de DOM -->
       </div>
+
+      <div id ="score-container">
+        <h3>Score: <span id="score"> 0 </span></h3>
+      </div>
+
+      <div id ="vidas-container">
+        <img src="./images/vidaentera.png" class="vida" id="vida1">
+        <img src="./images/vidaentera.png" class="vida" id="vida2">
+        <img src="./images/vidaentera.png" class="vida" id="vida3">
+      </div>
+      
 </div>
     
 <!--PANTALLA FINAL-->
@@ -71,8 +79,12 @@
     <h2>Game Over</h2>
     <h3>Play again?</h3>
 
-    <button id="restart-button">
+    <button id="restart-button"> <!--Este botón te lleva de nuevo al gamebox-->
         YES
+    </button>
+
+    <button id="start-screen-button"> <!--Este botón te lleva a la pantalla de inicio-->
+        NO
     </button>
 
 </div>

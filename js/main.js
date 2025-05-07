@@ -136,6 +136,7 @@ function gameOver() {
   finalScoreNode.textContent = score;
 }
 
+
 //!Event Listeners
 
 startButtonNode.addEventListener("click", () => {

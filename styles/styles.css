@@ -140,8 +140,9 @@ body {
 #game-box {
   background-color: darkgray;
   width: 800px;
-  height: 500px;
+  height: 600px;
 
+  display: flex;
   position: relative; /* permite posicionar los elementos de forma absoluta dentro del game-box */
   overflow: hidden; /* previene que los elementos salgan visualmente del game-box */
   user-select: none; /* previene que los elementos del game-box sean resaltados al hacer click */
@@ -156,6 +157,20 @@ body {
 #game-box * {
   pointer-events: none; /* previene que todos los elementos del game-box sean arrastrados al clickar sobre ellos */
 }
+
+#vidas-container {
+  position: absolute;
+  top: 60px;
+  left: 400px;
+  display: flex;
+  gap: 8px;
+}
+
+.vida {
+  width: 20px;
+  height: 20px;
+}
+
 
 /*PANTALLA GAME OVER*/
 
