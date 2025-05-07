@@ -44,23 +44,20 @@ let gameIntervalId = null;
 
 gameBoxNode.innerHTML = "";
 
-
 //!Funciones globales del juego
 
 //*FUNCIÓN PRINCIPAL DEL JUEGO
 
 function startGame() {
-
   startScreenNode.style.display = "none"; // Ocultar la pantalla inicial
 
   gameScreenNode.style.display = "flex"; //  Mostrar la pantalla de juego
 
-   //3. Añadimos el recolector al juego, y en el caso de reiniciar juego, 
-   // que no se quede el recolector del anterior intento
+  // Añadimos el recolector al juego, y en el caso de reiniciar juego,
+  // que no se quede el recolector del anterior intento
   if (!recolectorObj) {
     recolectorObj = new Recolector(gameBoxNode);
   }
-
 
   // Bucle principal del juego - gameLoop() (60fps)
 
@@ -69,7 +66,6 @@ function startGame() {
     console.log("Game loop funcionando");
 
     gameLoop();
-
   }, Math.round(1000 / 60)); //El juego va a 60 fps
 }
 
@@ -86,22 +82,19 @@ function gameLoop() {
     bicho.movimientoBichos();
 
     if (bicho.bichoEstaFuera()) {
-
       //Los elimina si salen
       bicho.desapareceBicho();
       bichosArr.splice(i, 1);
     }
     //Colisión con el personaje
     if (colision(recolectorObj, bicho)) {
-
       //Detecta colisiones
       bicho.desapareceBicho();
       bichosArr.splice(i, 1);
 
       //Contador de vidas restantes
-      perderVida() ;
+      perderVida();
       console.log("Vidas restantes:", vidas);
-
     }
   });
 
@@ -127,7 +120,6 @@ function gameLoop() {
 
 //Detecta si los elementos colisionan, basándose en sus posiciones y tamaños.
 function colision(recolectorObj, elementosQueColisionan) {
-
   //Funciona tanto para la colisión con los bichos y con los ingredientes (y con el bonus)
   return (
     recolectorObj.x < elementosQueColisionan.x + elementosQueColisionan.w &&
@@ -144,26 +136,24 @@ function gameOver() {
   gameOverScreenNode.style.display = "flex";
 
   finalScoreNode.textContent = score;
-
 }
 
 function perderVida() {
-  if (vidas <= 0) return; 
+  if (vidas <= 0) return;
 
   vidas--;
 
-   if (vidas === 2) {
-    imgVida3Node.style.visibility = "hidden"
-  }else if (vidas === 1) {
+  if (vidas === 2) {
+    imgVida3Node.style.visibility = "hidden";
+  } else if (vidas === 1) {
     imgVida2Node.style.visibility = "hidden";
     imgVida3Node.style.visibility = "hidden";
-  }else if (vidas === 0) {
+  } else if (vidas === 0) {
     gameOver();
   }
 }
 
-function reiniciarJuego() {
-  
+function limpiarJuego() {
   //Mostrar de nuevo el sistema de vidas
   vidas = 3;
   imgVida1Node.style.visibility = "visible";
@@ -175,12 +165,17 @@ function reiniciarJuego() {
   scoreNode.innerText = score;
 
   //Vaciar bichos e ingredientes del array y del DOM
-  
-  bichosArr.forEach(bicho => bicho.desapareceBicho());
+
+  bichosArr.forEach((bicho) => bicho.desapareceBicho());
   bichosArr = [];
 
-  ingredientesArr.forEach(ingrediente => ingrediente.desapareceIngrediente());
+  ingredientesArr.forEach((ingrediente) => ingrediente.desapareceIngrediente());
   ingredientesArr = [];
+}
+
+function reiniciarJuego() {
+  //Restaurar todos los valores del juego
+  limpiarJuego();
 
   //Empezar el bucle del juego de nuevo
   startGame();
@@ -197,14 +192,13 @@ restartButtonNode.addEventListener("click", () => {
   gameBoxNode.style.display = "flex";
 
   reiniciarJuego();
-
 });
 
 startScreenButtonNode.addEventListener("click", () => {
   gameOverScreenNode.style.display = "none";
   startScreenNode.style.display = "flex";
 
-  //reiniciarJuego();
+  limpiarJuego();
 });
 
 document.addEventListener("keydown", (e) => {
