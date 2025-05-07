@@ -31,7 +31,7 @@ const imgVida3Node = document.querySelector("#vida3");
 
 //*Música
 
-const musicaFondoNode = new Audio("./audio/geometric-dash.mp3");
+const musicaFondoNode = new Audio("./audio/fire-emblem.mp3");
 musicaFondoNode.loop = true; // La música se repite
 musicaFondoNode.volume = 0.1; // Ajusta volumen si hace falta
 
@@ -51,8 +51,6 @@ let score = 0;
 
 let gameIntervalId = null;
 
-gameBoxNode.innerHTML = "";
-
 let musicaActivada = true;
 
 let esInmune = false;
@@ -65,7 +63,7 @@ let velocidadOriginal = 20; // Velocidad base del recolector, corresponde con la
 function startGame() {
   startScreenNode.style.display = "none"; // Ocultar la pantalla inicial
 
-  gameScreenNode.style.display = "flex"; //  Mostrar la pantalla de juego
+  gameScreenNode.style.display = "block"; //  Mostrar la pantalla de juego
 
   // Añadimos el recolector al juego, y en el caso de reiniciar juego,
   // que no se quede el recolector del anterior intento
@@ -242,6 +240,8 @@ function limpiarJuego() {
 
   bonusArr.forEach(bonus => bonus.desapareceFrutaBonus());
   bonusArr = [];
+
+
 }
 
 function reiniciarJuego() {

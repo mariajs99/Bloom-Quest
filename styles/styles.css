@@ -127,7 +127,6 @@ body {
   width: 800px;
   height: 600px;
 
-  display: flex;
   position: relative; /* permite posicionar los elementos de forma absoluta dentro del game-box */
   overflow: hidden; /* previene que los elementos salgan visualmente del game-box */
   user-select: none; /* previene que los elementos del game-box sean resaltados al hacer click */
@@ -139,30 +138,26 @@ body {
   border: 2px solid black;
 }
 
-#game-box * {
-  pointer-events: none; /* previene que todos los elementos del game-box sean arrastrados al clickar sobre ellos */
-}
-
 #vidas-container {
   background-color: rgba(0, 0, 0, 0.247);
   border-radius: 15px;
   position: absolute;
-  top: 65px;
-  left: 970px;
-  display: flex;
-  padding: 5px;
+  top: 10px;
+  left: 630px;
+  padding: 3px;
 }
 
 .vida {
   width: 35px;
   height: 32px;
   margin: 3px;
+  z-index: 999;
 }
 
 #score-container {
   position: absolute;
-  top: 610px;
-  left: 680px;
+  top: 550px;
+  left: 360px;
   background-color: rgba(0, 0, 0, 0.249);
   border-radius: 10px;
 }
@@ -174,18 +169,19 @@ body {
 
 
 #musica-boton {
-  border-radius: 15px;
   position: absolute;
-  top: 65px;
-  left: 335px;
-  display: flex;
+  top: 10px;
+  left: 5px;
   padding: 5px;
 
-  width: 35px;
-  height: 32px;
+  width: 40px;
+  height: 35px;
   margin: 3px;
 
   cursor: pointer;
+
+  background-color: rgba(0, 0, 0, 0.249);
+  border-radius: 5px;
 }
 
 /*PANTALLA GAME OVER*/
