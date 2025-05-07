@@ -8,7 +8,9 @@ const gameOverScreenNode = document.querySelector("#gameover-screen");
 //*Botones
 
 const startButtonNode = document.querySelector("#start-button");
+
 const restartButtonNode = document.querySelector("#restart-button");
+const startScreenButtonNode = document.querySelector("#start-screen-button");
 
 //*Game-box
 
@@ -53,8 +55,11 @@ function startGame() {
 
   gameScreenNode.style.display = "flex"; //  Mostrar la pantalla de juego
 
-  recolectorObj = new Recolector(gameBoxNode); //3. Añadimos el recolector al juego
-
+   //3. Añadimos el recolector al juego, y en el caso de reiniciar juego, 
+   // que no se quede el recolector del anterior intento
+  if (!recolectorObj) {
+    recolectorObj = new Recolector(gameBoxNode);
+  }
 
 
   // Bucle principal del juego - gameLoop() (60fps)
@@ -81,28 +86,22 @@ function gameLoop() {
     bicho.movimientoBichos();
 
     if (bicho.bichoEstaFuera()) {
+
       //Los elimina si salen
       bicho.desapareceBicho();
       bichosArr.splice(i, 1);
     }
     //Colisión con el personaje
     if (colision(recolectorObj, bicho)) {
+
       //Detecta colisiones
-
-      //TODO console.log("Colisionando");
-
       bicho.desapareceBicho();
       bichosArr.splice(i, 1);
 
       //Contador de vidas restantes
-      
       perderVida() ;
-      
       console.log("Vidas restantes:", vidas);
 
-      /*if (vidas <= 0) {
-        gameOver();
-      }*/
     }
   });
 
@@ -140,9 +139,12 @@ function colision(recolectorObj, elementosQueColisionan) {
 
 function gameOver() {
   clearInterval(gameIntervalId);
+
   gameScreenNode.style.display = "none";
   gameOverScreenNode.style.display = "flex";
+
   finalScoreNode.textContent = score;
+
 }
 
 function perderVida() {
@@ -160,12 +162,50 @@ function perderVida() {
   }
 }
 
+function reiniciarJuego() {
+  
+  //Mostrar de nuevo el sistema de vidas
+  vidas = 3;
+  imgVida1Node.style.visibility = "visible";
+  imgVida2Node.style.visibility = "visible";
+  imgVida3Node.style.visibility = "visible";
+
+  //Mostrar de nuevo el score a 0
+  score = 0;
+  scoreNode.innerText = score;
+
+  //Vaciar bichos e ingredientes del array y del DOM
+  
+  bichosArr.forEach(bicho => bicho.desapareceBicho());
+  bichosArr = [];
+
+  ingredientesArr.forEach(ingrediente => ingrediente.desapareceIngrediente());
+  ingredientesArr = [];
+
+  //Empezar el bucle del juego de nuevo
+  startGame();
+}
+
 //!Event Listeners
 
 startButtonNode.addEventListener("click", () => {
   startGame();
 });
 
+restartButtonNode.addEventListener("click", () => {
+  gameOverScreenNode.style.display = "none";
+  gameBoxNode.style.display = "flex";
+
+  reiniciarJuego();
+
+});
+
+startScreenButtonNode.addEventListener("click", () => {
+  gameOverScreenNode.style.display = "none";
+  startScreenNode.style.display = "flex";
+
+  //reiniciarJuego();
+});
 
 document.addEventListener("keydown", (e) => {
   const key = e.key.toLowerCase();
