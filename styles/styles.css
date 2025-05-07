@@ -79,7 +79,7 @@ body {
 }
 
 #start-button {
-  background-color: rgb(206, 151, 249);
+  background-color: rgb(206, 141, 255);
   border-radius: 10px;
   cursor: pointer;
   padding: 0;
@@ -184,6 +184,8 @@ body {
   width: 35px;
   height: 32px;
   margin: 3px;
+
+  cursor: pointer;
 }
 
 /*PANTALLA GAME OVER*/
@@ -205,17 +207,60 @@ body {
 }
 
 #gameover-screen h2 {
+  position: relative;
   font-size: 100px;
   margin: 10px;
+  bottom: 85px;
+  right: 0px;
 }
 
 #gameover-screen h3 {
-  font-size: 50px;
+  position: relative;
+  color:  rgb(206, 141, 255);
+  font-size: 45px;
   margin: 10px;
+  bottom: 70px;
+  right: 0px;
 }
 
-#gameover-screen h4 {
+#final-score {
   position: relative;
+  bottom: 70px;
+  right: 0px;
   font-size: 30px;
+  background-color: rgba(206, 141, 255, 0.308);
+  padding: 10px;
+  border-radius: 10px;
+}
+
+#endingButtons-container {
+  position: relative;
+  margin: 10px;
   bottom: 60px;
+  right:10px;
+
+
+}
+
+#endingButtons-container button {
+  color: white;
+  background-color: rgba(206, 141, 255, 0);
+  font-family: "Jersey 10";
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/jersey10/v3/GftH7vZKsggXMf9n_J5n_5jh.woff2)
+    format("woff2");
+  font-size: 30px;
+  border-radius: 5px;
+}
+
+#restart-button {
+  margin-right: 20px;
+  cursor: pointer;
+}
+
+#start-screen-button {
+  margin-left: 20px;
+  cursor: pointer;
 }
