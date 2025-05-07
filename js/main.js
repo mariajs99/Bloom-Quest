@@ -19,6 +19,12 @@ const gameBoxNode = document.querySelector("#game-box");
 const scoreNode = document.querySelector("#score");
 const finalScoreNode = document.querySelector("#total-score");
 
+//*Vidas
+
+const imgVida1Node = document.querySelector("#vida1");
+const imgVida2Node = document.querySelector("#vida2");
+const imgVida3Node = document.querySelector("#vida3");
+
 //!Variables globales del juego
 
 let recolectorObj = null; // Esto es para poder agregar el obj del recolector aqui, pero que en todo mi código yo pueda acceder a esta variable facilmente.
@@ -48,6 +54,8 @@ function startGame() {
   gameScreenNode.style.display = "flex"; //  Mostrar la pantalla de juego
 
   recolectorObj = new Recolector(gameBoxNode); //3. Añadimos el recolector al juego
+
+
 
   // Bucle principal del juego - gameLoop() (60fps)
 
@@ -87,13 +95,14 @@ function gameLoop() {
       bichosArr.splice(i, 1);
 
       //Contador de vidas restantes
-      vidas--;
+      
+      perderVida() ;
       
       console.log("Vidas restantes:", vidas);
 
-      if (vidas <= 0) {
+      /*if (vidas <= 0) {
         gameOver();
-      }
+      }*/
     }
   });
 
@@ -136,6 +145,20 @@ function gameOver() {
   finalScoreNode.textContent = score;
 }
 
+function perderVida() {
+  if (vidas <= 0) return; 
+
+  vidas--;
+
+   if (vidas === 2) {
+    imgVida3Node.style.visibility = "hidden"
+  }else if (vidas === 1) {
+    imgVida2Node.style.visibility = "hidden";
+    imgVida3Node.style.visibility = "hidden";
+  }else if (vidas === 0) {
+    gameOver();
+  }
+}
 
 //!Event Listeners
 

@@ -46,7 +46,7 @@ class Recolector {
 
     // Limitar para que no se salga del gameBox
     this.x = Math.max(0, Math.min(this.x, 800 - this.w));
-    this.y = Math.max(0, Math.min(this.y, 500 - this.h));
+    this.y = Math.max(0, Math.min(this.y, 550 - this.h));
 
     this.node.style.top = this.y + "px";
     this.node.style.left = this.x + "px";

@@ -17,59 +17,45 @@ body {
 /*PANTALLA DE INICIO*/
 
 #main-title {
-  
   font-size: 90px;
   margin: 10px;
 }
 
 #teclas {
-    position: absolute;
-    top: 120px;
-    right: 590px;
-    border: 5px;
-    border-radius: 10px;
-    border-width: 1px;
-    background-color:rgba(42, 44, 153, 0.645);
-  
+  position: absolute;
+  top: 115px;
+  right: 590px;
+  border: 5px;
+  border-radius: 10px;
+  border-width: 1px;
+  background-color: rgba(42, 44, 153, 0.645);
 }
 
 #teclas p {
-
-      margin: 5px;
+  margin: 5px;
 }
 
 #teclas img {
-    margin-left: 45px;
-    margin-top: 5px;
-
+  margin-left: 45px;
+  margin-top: 5px;
 }
 
 #instructions {
-    background-color: rgba(42, 44, 153, 0.645);
-    color: white;
-    font-family: "Jersey 10";
-    font-style: normal;
-    font-weight: 300;
-    src: url(https://fonts.gstatic.com/s/jersey10/v3/GftH7vZKsggXMf9n_J5n_5jh.woff2)
-      format("woff2");
-    font-size: 15px;
-    padding:10px;
-    border: 5px;
-    border-radius: 10px;
-    text-align: center;
-    margin-top: 40px;
+  background-color: rgba(42, 44, 153, 0.645);
+  font-size: 17px;
+  padding: 10px;
+  border: 5px;
+  border-radius: 10px;
+  text-align: center;
+  margin-top: 25px;
 }
 
 #instructions h3 {
-    color: white;
-    font-family: "Jersey 10";
-    font-style: normal;
-    font-weight: 300;
-    src: url(https://fonts.gstatic.com/s/jersey10/v3/GftH7vZKsggXMf9n_J5n_5jh.woff2)
-      format("woff2");
-    font-size: 30px;
-    margin: 5px;
-    text-align: center;
+  color: white;
+  font-weight: 300;
+  font-size: 30px;
+  margin: 5px;
+  text-align: center;
 }
 
 #instructions p {
@@ -77,26 +63,25 @@ body {
 }
 
 #instructions ul {
-    list-style-type: none;
-    text-align: start;
+  list-style-type: none;
+  text-align: start;
 }
 
 #start-button {
-    background-color: rgb(206, 151, 249);
-    border-radius: 10px;
-    cursor: pointer; 
-    padding: 0;  
-    margin: 15px;
-    width: 130px;
-    height: 50px;
-    font-family: "Jersey 10";
-    font-style: normal;
-    font-weight: 300;
-    src: url(https://fonts.gstatic.com/s/jersey10/v3/GftH7vZKsggXMf9n_J5n_5jh.woff2)
-      format("woff2");
-    font-size: 40px;
+  background-color: rgb(206, 151, 249);
+  border-radius: 10px;
+  cursor: pointer;
+  padding: 0;
+  margin: 15px;
+  width: 130px;
+  height: 50px;
+  font-family: "Jersey 10";
+  font-style: normal;
+  font-weight: 300;
+  src: url(https://fonts.gstatic.com/s/jersey10/v3/GftH7vZKsggXMf9n_J5n_5jh.woff2)
+    format("woff2");
+  font-size: 40px;
 }
-
 
 #lifes {
   position: absolute;
@@ -127,7 +112,6 @@ body {
 
   background-position: center;
   background-size: cover;
-
 }
 
 /*PANTALLA DEL JUEGO*/
@@ -159,18 +143,33 @@ body {
 }
 
 #vidas-container {
+  background-color: rgba(0, 0, 0, 0.247);
+  border-radius: 15px;
   position: absolute;
-  top: 60px;
-  left: 400px;
+  top: 65px;
+  left: 970px;
   display: flex;
-  gap: 8px;
+  padding: 5px;
 }
 
 .vida {
-  width: 20px;
-  height: 20px;
+  width: 35px;
+  height: 32px;
+  margin: 3px;
 }
 
+#score-container {
+  position: absolute;
+  top: 610px;
+  left: 680px;
+  background-color: rgba(0, 0, 0, 0.249);
+  border-radius: 10px;
+}
+
+#score-container h3 {
+  margin: 5px;
+  font-size: 25px;
+}
 
 /*PANTALLA GAME OVER*/
 
@@ -187,7 +186,6 @@ body {
   background-image: url("../images/gameOver.webp");
   background-position: center;
   background-size: cover;
-
   border: 2px solid black;
 }
 
