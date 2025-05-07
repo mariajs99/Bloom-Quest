@@ -43,6 +43,8 @@ let bichosArr = [];
 
 let ingredientesArr = [];
 
+let bonusArr = [];
+
 let vidas = 3;
 
 let score = 0;
@@ -52,6 +54,9 @@ let gameIntervalId = null;
 gameBoxNode.innerHTML = "";
 
 let musicaActivada = true;
+
+let esInmune = false;
+let velocidadOriginal = 20; // Velocidad base del recolector, corresponde con la definida en su clase
 
 //!Funciones globales del juego
 
@@ -82,7 +87,7 @@ function startGame() {
 
 function gameLoop() {
   // Crear bichos aleatorios
-  if (Math.random() < 0.007) {
+  if (Math.random() < 0.01) {
     const nuevoBicho = new Bichos(gameBoxNode);
     bichosArr.push(nuevoBicho);
   }
@@ -97,19 +102,23 @@ function gameLoop() {
       bicho.desapareceBicho();
       bichosArr.splice(i, 1);
     }
+
     //Colisión con el personaje
     if (colision(recolectorObj, bicho)) {
       //Detecta colisiones
       bicho.desapareceBicho();
       bichosArr.splice(i, 1);
 
-      //Contador de vidas restantes
-      perderVida();
-      console.log("Vidas restantes:", vidas);
+      //Condicional para hacer inmune al personaje al colisionar con los bichos por el bonus
+      if(!esInmune) {
+        perderVida();
+        console.log("Vidas restantes:", vidas);
+      }
+      
     }
   });
 
-  // Crear ingredientes aleatoriamente
+  // Crear ingredientes aleatorios
   if (Math.random() < 0.015) {
     const nuevoIngrediente = new Ingredientes(gameBoxNode);
     ingredientesArr.push(nuevoIngrediente);
@@ -127,6 +136,27 @@ function gameLoop() {
       scoreNode.textContent = score;
     }
   });
+
+  //Crear frutas bonus aleatorias
+  if(Math.random() < 0.001) {
+    const nuevoBonus = new FrutaBonus(gameBoxNode);
+    bonusArr.push(nuevoBonus);
+    console.log("Bonus creado:", nuevoBonus);
+  }
+
+  //Gestionar las colisiones con las frutas bonus
+  bonusArr.forEach((eachBonus, i) => {
+    if(colision(recolectorObj, eachBonus)) {
+      eachBonus.desapareceFrutaBonus();
+      bonusArr.splice(i, 1);
+
+      score += 30;
+      scoreNode.textContent = score;
+
+      //activa la inmunidad y el aumento de velocidad del bonus
+      activarBonus();
+    }
+  });
 }
 
 //Detecta si los elementos colisionan, basándose en sus posiciones y tamaños.
@@ -140,17 +170,6 @@ function colision(recolectorObj, elementosQueColisionan) {
   );
 }
 
-function gameOver() {
-  clearInterval(gameIntervalId);
-
-  gameScreenNode.style.display = "none";
-  gameOverScreenNode.style.display = "flex";
-
-  finalScoreNode.textContent = score;
-
-  musicaFondoNode.pause();
-  musicaFondoNode.currentTime = 0; // Reinicia la canción
-}
 
 function perderVida() {
   if (vidas <= 0) return;
@@ -166,6 +185,41 @@ function perderVida() {
     gameOver();
   }
 }
+
+function activarBonus () {
+  if(esInmune) return; //Para no volver a activar el efecto si ya está activo
+
+  esInmune = true;
+
+  recolectorObj.speed += 10; //Aumentamos velocidad
+  recolectorObj.node.style.filter = "brightness(1.5) saturate(2)"; // Efecto visual para saber que está en modo inmune
+
+  console.log("Inmunidad y velocidad");
+
+  setTimeout(() => {
+    esInmune = false;
+    recolectorObj.speed = velocidadOriginal; //Para que vuelva a su velocidad base
+    recolectorObj.node.style.filter = "none"; 
+  }, 5000); //Dura 5 segundos el bonus activo
+}
+
+
+
+
+
+
+function gameOver() {
+  clearInterval(gameIntervalId);
+
+  gameScreenNode.style.display = "none";
+  gameOverScreenNode.style.display = "flex";
+
+  finalScoreNode.textContent = score;
+
+  musicaFondoNode.pause();
+  musicaFondoNode.currentTime = 0; // Reinicia la canción
+}
+
 
 function limpiarJuego() {
   //Mostrar de nuevo el sistema de vidas
@@ -185,6 +239,9 @@ function limpiarJuego() {
 
   ingredientesArr.forEach((ingrediente) => ingrediente.desapareceIngrediente());
   ingredientesArr = [];
+
+  bonusArr.forEach(bonus => bonus.desapareceFrutaBonus());
+  bonusArr = [];
 }
 
 function reiniciarJuego() {
