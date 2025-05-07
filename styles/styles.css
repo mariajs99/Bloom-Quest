@@ -15,6 +15,17 @@ body {
 }
 
 /*PANTALLA DE INICIO*/
+#start-screen {
+  position: relative;
+  background-image: url("../images/background.sky.avif");
+  background-color: darkgray;
+
+  width: 800px;
+  height: 500px;
+
+  background-position: center;
+  background-size: cover;
+}
 
 #main-title {
   font-size: 90px;
@@ -102,17 +113,7 @@ body {
   margin: 50px;
 }
 
-#start-screen {
-  position: relative;
-  background-image: url("../images/background.sky.avif");
-  background-color: darkgray;
 
-  width: 800px;
-  height: 500px;
-
-  background-position: center;
-  background-size: cover;
-}
 
 /*PANTALLA DEL JUEGO*/
 
@@ -169,6 +170,20 @@ body {
 #score-container h3 {
   margin: 5px;
   font-size: 25px;
+}
+
+
+#musica-boton {
+  border-radius: 15px;
+  position: absolute;
+  top: 65px;
+  left: 335px;
+  display: flex;
+  padding: 5px;
+
+  width: 35px;
+  height: 32px;
+  margin: 3px;
 }
 
 /*PANTALLA GAME OVER*/

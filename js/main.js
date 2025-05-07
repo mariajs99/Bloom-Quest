@@ -12,6 +12,8 @@ const startButtonNode = document.querySelector("#start-button");
 const restartButtonNode = document.querySelector("#restart-button");
 const startScreenButtonNode = document.querySelector("#start-screen-button");
 
+const musicButtonNode = document.querySelector("#musica-boton")
+
 //*Game-box
 
 const gameBoxNode = document.querySelector("#game-box");
@@ -27,11 +29,16 @@ const imgVida1Node = document.querySelector("#vida1");
 const imgVida2Node = document.querySelector("#vida2");
 const imgVida3Node = document.querySelector("#vida3");
 
+//*Música
+
+const musicaFondoNode = new Audio("./audio/geometric-dash.mp3");
+musicaFondoNode.loop = true; // La música se repite
+musicaFondoNode.volume = 0.1; // Ajusta volumen si hace falta
+
 //!Variables globales del juego
 
 let recolectorObj = null; // Esto es para poder agregar el obj del recolector aqui, pero que en todo mi código yo pueda acceder a esta variable facilmente.
 
-// let tuberiaObj = null;
 let bichosArr = [];
 
 let ingredientesArr = [];
@@ -43,6 +50,8 @@ let score = 0;
 let gameIntervalId = null;
 
 gameBoxNode.innerHTML = "";
+
+let musicaActivada = true;
 
 //!Funciones globales del juego
 
@@ -58,6 +67,8 @@ function startGame() {
   if (!recolectorObj) {
     recolectorObj = new Recolector(gameBoxNode);
   }
+
+  musicaFondoNode.play();
 
   // Bucle principal del juego - gameLoop() (60fps)
 
@@ -136,6 +147,9 @@ function gameOver() {
   gameOverScreenNode.style.display = "flex";
 
   finalScoreNode.textContent = score;
+
+  musicaFondoNode.pause();
+  musicaFondoNode.currentTime = 0; // Reinicia la canción
 }
 
 function perderVida() {
@@ -207,6 +221,17 @@ document.addEventListener("keydown", (e) => {
   if (["w", "a", "s", "d"].includes(key) && recolectorObj) {
     recolectorObj.moverRecolector(key);
   }
+});
+
+musicButtonNode.addEventListener("click", () =>  {
+  if(musicaActivada) {
+    musicaFondoNode.pause();
+    musicButtonNode.textContent = "🔇";
+  }else {
+    musicaFondoNode.play();
+    musicButtonNode.textContent = "🔊";
+  }
+  musicaActivada = !musicaActivada; //cambiar estado del booleano
 });
 
 //! PLANIFICACIÓN JS
