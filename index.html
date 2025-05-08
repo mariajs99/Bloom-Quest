@@ -17,6 +17,7 @@
 <!--PANTALLA DE INICIO-->
 
 <div id="start-screen" class="container">
+
     <div id="lifes">
         <img src="images/tresVidas.png"/>
     </div>
@@ -52,7 +53,10 @@
 
 <div id="game-screen" class="container">
      <!-- Elementos del juego como score, vidas, etc deberia ir aqui -->
-      
+      <div id="level-container">
+        <h1>Nivel: <span id="level">1</span></h1>
+      </div>
+
     <div id="game-box">
         <!-- Los elementos del juego como ingredientes, bichos, personaje y bonus serán añadidos desde JS con manipulación de DOM -->
     
@@ -80,7 +84,6 @@
 
     <h2>Game Over</h2>
     <h3>Play again?</h3>
-    <div id="ranking"></div>
     <div id="endingButtons-container">
     <button id="restart-button"> <!--Este botón te lleva de nuevo al gamebox-->
         YES

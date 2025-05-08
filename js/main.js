@@ -18,10 +18,16 @@ const musicButtonNode = document.querySelector("#musica-boton");
 
 const gameBoxNode = document.querySelector("#game-box");
 
+
 //*Score
 
 const scoreNode = document.querySelector("#score");
 const finalScoreNode = document.querySelector("#total-score");
+
+
+//*Niveles de dificultad
+
+const levelNode = document.querySelector("#level");
 
 //*Vidas
 
@@ -37,15 +43,14 @@ musicaFondoNode.volume = 0.1; // Ajusta volumen si hace falta
 
 const sonidoColisionBichos = new Audio("./audio/colisionBichos2.mp3");
 const sonidoColisionBonus = new Audio("./audio/colisionBonus.mp3");
-const sonidoColisionIngredientes = new Audio(
-  "./audio/colisionIngredientes.mp3"
-);
+const sonidoColisionIngredientes = new Audio("./audio/colisionIngredientes.mp3");
 sonidoColisionIngredientes.volume = 0.07;
 const sonidoBoton = new Audio("./audio/botonRestart.mp3");
 
 //!Variables globales del juego
 
-let recolectorObj = null; // Esto es para poder agregar el obj del recolector aqui, pero que en todo mi código yo pueda acceder a esta variable facilmente.
+// Facil acceso del recolector
+let recolectorObj = null; 
 
 let bichosArr = [];
 
@@ -62,8 +67,11 @@ let gameIntervalId = null;
 let musicaActivada = true;
 
 let esInmune = false;
-let velocidadOriginal = 5; // Velocidad base del recolector, corresponde con la definida en su clase
 
+// Velocidad base del recolector, corresponde con la definida en su clase
+let velocidadOriginal = 5; 
+
+//Controlar el personaje de manera fluida
 const presionarTeclas = {
   w: false,
   a: false,
@@ -71,13 +79,18 @@ const presionarTeclas = {
   d: false,
 };
 
+//Definir niveles de dificultad
+let nivel = 1;
+let segundosTranscurridos = 0;
+let dificultadIntervalId = null;
+let velocidad = 3;
+
 //!Funciones globales del juego
 
 //*FUNCIÓN PRINCIPAL DEL JUEGO
 
 function startGame() {
   startScreenNode.style.display = "none"; // Ocultar la pantalla inicial
-
   gameScreenNode.style.display = "block"; //  Mostrar la pantalla de juego
 
   // Añadimos el recolector al juego, y en el caso de reiniciar juego,
@@ -88,31 +101,41 @@ function startGame() {
 
   musicaFondoNode.play();
 
-  // Bucle principal del juego - gameLoop() (60fps)
-
+  // GameIntervalId contiene toda la lógica del juego
   gameIntervalId = setInterval(() => {
-    // GameIntervalId contiene toda la lógica del juego, que es todo lo que hay en gameLoop()
-    console.log("Game loop funcionando");
 
     gameLoop();
+
   }, Math.round(1000 / 60)); //El juego va a 60 fps
-}
+
+      //Aumenta dificultad cada minuto
+      dificultadIntervalId = setInterval(() => {
+
+        aumentarDificultad();
+
+      }, 30000); 
+
+      //actualizarNivelVisual();
+
+};
 
 function gameLoop() {
+
   //Mover recolector
 
   if (recolectorObj) {
     for (const key in presionarTeclas) {
       if (presionarTeclas[key]) {
         recolectorObj.moverRecolector(key);
-      }
-    }
-  }
+      };
+    };
+  };
 
   // Crear bichos aleatorios
-  if (Math.random() < 0.01) {
+  if (Math.random() < 0.02) {
     const nuevoBicho = new Bichos(gameBoxNode);
     bichosArr.push(nuevoBicho);
+    nuevoBicho.speed = velocidad;
   }
 
   // Mover bichos y gestionar colisiones
@@ -125,6 +148,7 @@ function gameLoop() {
       bicho.desapareceBicho();
       bichosArr.splice(i, 1);
     }
+    
 
     //Colisión con el personaje
     if (colision(recolectorObj, bicho)) {
@@ -138,13 +162,12 @@ function gameLoop() {
       //Condicional para hacer inmune al personaje al colisionar con los bichos por el bonus
       if (!esInmune) {
         perderVida();
-        console.log("Vidas restantes:", vidas);
       }
     }
   });
 
   // Crear ingredientes aleatorios
-  if (Math.random() < 0.015) {
+  if (Math.random() < 0.018) {
     const nuevoIngrediente = new Ingredientes(gameBoxNode);
     ingredientesArr.push(nuevoIngrediente);
   }
@@ -166,7 +189,6 @@ function gameLoop() {
   if (Math.random() < 0.001) {
     const nuevoBonus = new FrutaBonus(gameBoxNode);
     bonusArr.push(nuevoBonus);
-    console.log("Bonus creado:", nuevoBonus);
   }
 
   //Gestionar las colisiones con las frutas bonus
@@ -220,7 +242,6 @@ function activarBonus() {
 
   recolectorObj.speed += 10; //Aumentamos velocidad
   recolectorObj.node.style.filter = "brightness(1.5) saturate(2)"; // Efecto visual para saber que está en modo inmune
-  console.log("Inmunidad y velocidad");
 
   setTimeout(() => {
     esInmune = false;
@@ -228,6 +249,25 @@ function activarBonus() {
     recolectorObj.node.style.filter = "none";
   }, 5000); //Dura 5 segundos el bonus activo
 }
+
+function aumentarDificultad() {
+  nivel++;
+  actualizarNivelVisual();
+  velocidad += 0.35 * nivel
+
+  bichosArr.forEach ((eachBicho) => {
+    eachBicho.speed += velocidad; //Aumentan su velocidad
+    console.log("aumentando velocidad")
+  });
+
+};
+
+function actualizarNivelVisual() {
+  if (levelNode) {
+    levelNode.textContent = nivel;
+  }
+}
+
 
 function gameOver() {
   clearInterval(gameIntervalId);

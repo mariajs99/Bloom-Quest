@@ -11,7 +11,7 @@ class Bichos {
     this.y = Math.random() * 500; // posición inicial aleatoria con respecto a la ALTURA del gamebox
     this.w = 60; //tamaño de los bichos
     this.h = 60;
-    this.speed = 2;
+    this.speed = 3;
 
     //Definir posiciones iniciales en el gamebox
     this.node.style.position = "absolute";
