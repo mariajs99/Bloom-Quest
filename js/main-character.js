@@ -9,7 +9,7 @@ class Recolector {
     this.y = 60;
     this.w = 80; //tamaño del recolector
     this.h = 110;
-    this.speed = 5;
+    this.speed = velocidadRecolector;
 
     //Con esto definimos el tamaño inicial de nuestro personaje en la gamebox
     this.node.style.width = `${this.w}px`;
@@ -51,7 +51,6 @@ class Recolector {
     this.node.style.top = this.y + "px";
     this.node.style.left = this.x + "px";
   }
-
 }
 
 class Vidas {

@@ -26,7 +26,7 @@
     <h1 id="main-title">Bloom Quest</h1>
 
     <div id="teclas">
-        <p>Usa estas teclas para moverte </p>
+        <!--<p>Usa estas teclas para moverte </p> -->
         <img src="images/teclas.png" width="100px"/>
     </div>
 
@@ -35,15 +35,16 @@
     </div>
     
     <div id="instructions">
-        <h3>🎮 Cómo jugar </h3>
-        <p>Tu misión como experto recolector es recorrer el bosque y recolectar ingredientes mágicos para tus pociones.</p>
+        <h3>🎮 How to Play </h3>
+        <p>Your mission as a skilled collector is to roam the forest and gather magical ingredients for your potions.</p>
        <ul>
-        <li>🍀 Recolecta los ingredientes que aparecen por el bosque.<br> Por cada objeto recolectado, obtendrás +10 en tu score.</li>
-        <li>💔 Pero, ¡cuidado! Evita a los bichos o te quitarán tus vidas. </li>
-        <li>🌟 Aparecerán algunas frutas misteriosas que te falicitarán tu búsqueda: durante unos segundos <br> serás más rápido e inmune a los bichos.
-            Además, por cada fruta obtenida, tendrás +30 en tu score. </li>
-        <li>​🐝 Si los bichos te golpean tres veces… ¡Game Over!</li>
-        <li>🔁 Pero no te preocupes, ¡siempre podrás intentarlo de nuevo!</li>
+        <li>🍀 Collect the ingredients that appear throughout the forest.<br> 
+            Each item you collect gives you +10 points to your score.</li>
+        <li>💔 But be careful! Avoid the bugs or you'll lose lives. </li>
+        <li>🌟 Catch the mysterious fruit to become immune and move faster <br>
+            for a few seconds. Plus, you'll earn +30 points! </li>
+        <li>​🐝  If the bugs hit you three times… it's Game Over!</li>
+        <li>🔁 But don't worry, you can always try again!</li>
        </ul>
     </div>
 
@@ -52,15 +53,13 @@
 <!--PANTALLA DE JUEGO-->
 
 <div id="game-screen" class="container">
-     <!-- Elementos del juego como score, vidas, etc deberia ir aqui -->
+
       <div id="level-container">
-        <h1>Nivel: <span id="level">1</span></h1>
+        <h1>Level <span id="level">1</span></h1>
       </div>
 
     <div id="game-box">
-        <!-- Los elementos del juego como ingredientes, bichos, personaje y bonus serán añadidos desde JS con manipulación de DOM -->
     
-
         <button id="musica-boton">🔊</button>
 
         <div id ="score-container">

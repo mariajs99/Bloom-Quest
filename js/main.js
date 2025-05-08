@@ -18,12 +18,10 @@ const musicButtonNode = document.querySelector("#musica-boton");
 
 const gameBoxNode = document.querySelector("#game-box");
 
-
 //*Score
 
 const scoreNode = document.querySelector("#score");
 const finalScoreNode = document.querySelector("#total-score");
-
 
 //*Niveles de dificultad
 
@@ -43,14 +41,15 @@ musicaFondoNode.volume = 0.1; // Ajusta volumen si hace falta
 
 const sonidoColisionBichos = new Audio("./audio/colisionBichos2.mp3");
 const sonidoColisionBonus = new Audio("./audio/colisionBonus.mp3");
-const sonidoColisionIngredientes = new Audio("./audio/colisionIngredientes.mp3");
+const sonidoColisionIngredientes = new Audio(
+  "./audio/colisionIngredientes.mp3"
+);
 sonidoColisionIngredientes.volume = 0.07;
 const sonidoBoton = new Audio("./audio/botonRestart.mp3");
 
 //!Variables globales del juego
 
-// Facil acceso del recolector
-let recolectorObj = null; 
+let recolectorObj = null;
 
 let bichosArr = [];
 
@@ -69,7 +68,7 @@ let musicaActivada = true;
 let esInmune = false;
 
 // Velocidad base del recolector, corresponde con la definida en su clase
-let velocidadOriginal = 5; 
+let velocidadOriginal = 5;
 
 //Controlar el personaje de manera fluida
 const presionarTeclas = {
@@ -81,9 +80,9 @@ const presionarTeclas = {
 
 //Definir niveles de dificultad
 let nivel = 1;
-let segundosTranscurridos = 0;
 let dificultadIntervalId = null;
-let velocidad = 3;
+let velocidadBichos = 2;
+let velocidadRecolector = 4;
 
 //!Funciones globales del juego
 
@@ -103,39 +102,33 @@ function startGame() {
 
   // GameIntervalId contiene toda la lógica del juego
   gameIntervalId = setInterval(() => {
-
     gameLoop();
-
   }, Math.round(1000 / 60)); //El juego va a 60 fps
 
-      //Aumenta dificultad cada minuto
-      dificultadIntervalId = setInterval(() => {
+  //Aumenta dificultad cada minuto
+  dificultadIntervalId = setInterval(() => {
+    aumentarDificultad();
+  }, 30000);
 
-        aumentarDificultad();
-
-      }, 30000); 
-
-      //actualizarNivelVisual();
-
-};
+  //actualizarNivelVisual();
+}
 
 function gameLoop() {
-
   //Mover recolector
 
   if (recolectorObj) {
     for (const key in presionarTeclas) {
       if (presionarTeclas[key]) {
         recolectorObj.moverRecolector(key);
-      };
-    };
-  };
+      }
+    }
+  }
 
   // Crear bichos aleatorios
-  if (Math.random() < 0.02) {
+
+  if (Math.random() < 0.013) {
     const nuevoBicho = new Bichos(gameBoxNode);
     bichosArr.push(nuevoBicho);
-    nuevoBicho.speed = velocidad;
   }
 
   // Mover bichos y gestionar colisiones
@@ -148,7 +141,6 @@ function gameLoop() {
       bicho.desapareceBicho();
       bichosArr.splice(i, 1);
     }
-    
 
     //Colisión con el personaje
     if (colision(recolectorObj, bicho)) {
@@ -209,7 +201,6 @@ function gameLoop() {
   });
 }
 
-//Detecta si los elementos colisionan, basándose en sus posiciones y tamaños.
 function colision(recolectorObj, elementosQueColisionan) {
   //Funciona tanto para la colisión con los bichos y con los ingredientes (y con el bonus)
   return (
@@ -253,21 +244,21 @@ function activarBonus() {
 function aumentarDificultad() {
   nivel++;
   actualizarNivelVisual();
-  velocidad += 0.35 * nivel
-
+  velocidadBichos += 0.45;
+  velocidadRecolector += 0.25;
+  console.log("aumentando velocidad");
+  /*
   bichosArr.forEach ((eachBicho) => {
     eachBicho.speed += velocidad; //Aumentan su velocidad
-    console.log("aumentando velocidad")
   });
-
-};
+*/
+}
 
 function actualizarNivelVisual() {
   if (levelNode) {
     levelNode.textContent = nivel;
   }
 }
-
 
 function gameOver() {
   clearInterval(gameIntervalId);
@@ -283,6 +274,7 @@ function gameOver() {
 
 function limpiarJuego() {
   //Mostrar de nuevo el sistema de vidas
+
   vidas = 3;
   imgVida1Node.style.visibility = "visible";
   imgVida2Node.style.visibility = "visible";
@@ -292,16 +284,24 @@ function limpiarJuego() {
   score = 0;
   scoreNode.innerText = score;
 
-  //Vaciar bichos e ingredientes del array y del DOM
-
+  // Resetear bichos
   bichosArr.forEach((bicho) => bicho.desapareceBicho());
   bichosArr = [];
 
+  // Resetear ingredientes
   ingredientesArr.forEach((ingrediente) => ingrediente.desapareceIngrediente());
   ingredientesArr = [];
 
+  // Resetear bonus
   bonusArr.forEach((bonus) => bonus.desapareceFrutaBonus());
   bonusArr = [];
+
+  // Resetear dificultad
+  nivel = 1;
+  velocidadBichos = 2;
+  velocidadRecolector = 4;
+  clearInterval(dificultadIntervalId);
+  actualizarNivelVisual();
 }
 
 function reiniciarJuego() {
@@ -341,7 +341,7 @@ document.addEventListener("keydown", (e) => {
   const key = e.key.toLowerCase();
   if (key in presionarTeclas) {
     presionarTeclas[key] = true;
-    e.preventDefault(); // Para evitar el scroll, p.e.
+    e.preventDefault();
   }
 });
 
@@ -352,6 +352,7 @@ document.addEventListener("keyup", (e) => {
     e.preventDefault();
   }
 });
+
 /*
 document.addEventListener("keydown", (e) => {
   const key = e.key.toLowerCase();
@@ -361,6 +362,7 @@ document.addEventListener("keydown", (e) => {
   }
 });
 */
+
 musicButtonNode.addEventListener("click", () => {
   if (musicaActivada) {
     musicaFondoNode.pause();
@@ -373,6 +375,7 @@ musicButtonNode.addEventListener("click", () => {
 });
 
 //! PLANIFICACIÓN JS
+
 /*
 - ////Fondo
 - ////Personaje (x, y, h, w, speed, nodo)
@@ -407,7 +410,7 @@ musicButtonNode.addEventListener("click", () => {
 ////Nuevo bonus
 
 - ////Hacer movimiento de las teclas más suave, sin parones al saltar de tecla.
-
+- ////Hacer sistema de niveles en el qe vaya aumentando la dificultad del juego (mayor velocidad el bichos y personaje)
 
 
 */

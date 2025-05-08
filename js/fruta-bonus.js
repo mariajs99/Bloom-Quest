@@ -1,40 +1,38 @@
 class FrutaBonus {
-    constructor(gameBoxNode) {
-        this.node = document.createElement("img");
-        this.node.src = "./images/fruta.png";
-    
-        //Crear posición aleatoria dentro del gamebox
-        this.x = Math.random() * 800; // posición inicial aleatoria con respecto al ANCHO del gamebox
-        this.y = Math.random() * 500; // posición inicial aleatoria con respecto a la ALTURA del gamebox
-        this.w = 70; //tamaño de los ingredientes
-        this.h = 70;
-    
-        // definimos el tamaño inicial de nuestros ingredientes en el gamebox
-        this.node.style.width = this.w + "px";
-        this.node.style.height = this.h + "px";
-    
-        //Definir posiciones iniciales en el gamebox
-        this.node.style.position = "absolute";
-    
-        this.node.style.left = this.x + "px";
-        this.node.style.top = this.y + "px";
-    
-        //Para coger el nodo de la imagen e insertarlo en el juego cuando estemos en el game box
-        gameBoxNode.append(this.node);
-    
-        setTimeout(() => {
-            this.desapareceFrutaBonus();
-      
-            const indexFruta = bonusArr.indexOf(this);
-            if (indexFruta !== -1) bonusArr.splice(index, 1);
-            //evito que colisione con elementos invisibles
-            // y mantengo el array de ingredientes limpio
-      
-          }, 7000);
-        }
-    
-    
-    desapareceFrutaBonus() {
-        this.node.remove();
-    }
+  constructor(gameBoxNode) {
+    this.node = document.createElement("img");
+    this.node.src = "./images/fruta.png";
+
+    //Crear posición aleatoria dentro del gamebox
+    this.x = Math.random() * 800; // posición inicial aleatoria con respecto al ANCHO del gamebox
+    this.y = Math.random() * 500; // posición inicial aleatoria con respecto a la ALTURA del gamebox
+    this.w = 70; //tamaño de los ingredientes
+    this.h = 70;
+
+    // definimos el tamaño inicial de nuestros ingredientes en el gamebox
+    this.node.style.width = this.w + "px";
+    this.node.style.height = this.h + "px";
+
+    //Definir posiciones iniciales en el gamebox
+    this.node.style.position = "absolute";
+
+    this.node.style.left = this.x + "px";
+    this.node.style.top = this.y + "px";
+
+    //Para coger el nodo de la imagen e insertarlo en el juego cuando estemos en el game box
+    gameBoxNode.append(this.node);
+
+    setTimeout(() => {
+      this.desapareceFrutaBonus();
+
+      const indexFruta = bonusArr.indexOf(this);
+      if (indexFruta !== -1) bonusArr.splice(indexFruta, 1);
+      //evito que colisione con elementos invisibles
+      // y mantengo el array de ingredientes limpio
+    }, 7000);
+  }
+
+  desapareceFrutaBonus() {
+    this.node.remove();
+  }
 }

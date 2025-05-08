@@ -8,9 +8,11 @@ class Ingredientes {
       "./images/planta8.png",
       "./images/planta7.png",
       "./images/planta3.png",
-      "./images/planta5.png" ];
+      "./images/planta5.png",
+    ];
     const alternarIngredientes = Math.floor(
-      Math.random() * ingredientes.length);
+      Math.random() * ingredientes.length
+    );
 
     this.node.src = ingredientes[alternarIngredientes];
 
@@ -40,7 +42,6 @@ class Ingredientes {
       if (index !== -1) ingredientesArr.splice(index, 1);
       //evito que colisione con elementos invisibles
       // y mantengo el array de ingredientes limpio
-
     }, 5000);
   }
 

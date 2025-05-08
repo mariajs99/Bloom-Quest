@@ -7,7 +7,7 @@ body {
 
   color: white;
   font-family: "Jersey 10";
-  font-style:normal;
+  font-style: normal;
   font-weight: 400;
   font-display: swap;
   src: url(https://fonts.gstatic.com/s/jersey10/v3/GftH7vZKsggXMf9n_J5n_5jh.woff2)
@@ -34,25 +34,13 @@ body {
 
 #teclas {
   position: absolute;
-  top: 115px;
-  right: 540px;
+  top: 350px;
+  right: 100px;
   border: 5px;
+  padding: 5px;
   border-radius: 10px;
   border-width: 1px;
-  background-color: rgba(42, 44, 153, 0.645);
-}
-
-#teclas p {
-  margin: 5px;
-  font-family: "Jersey 15";
-  font-style:normal;
-  font-weight: 100;
-
-}
-
-#teclas img {
-  margin-left: 45px;
-  margin-top: 5px;
+  background-color: rgba(212, 120, 255, 0.307);
 }
 
 #instructions {
@@ -62,7 +50,7 @@ body {
   border: 5px;
   border-radius: 10px;
   text-align: center;
-  margin-top: 25px;
+  margin-top: 5px;
 }
 
 #instructions h3 {
@@ -76,7 +64,7 @@ body {
 #instructions p {
   margin: 5px;
   font-family: "Jersey 15";
-  font-style:normal;
+  font-style: normal;
   font-weight: 100;
 }
 
@@ -84,11 +72,9 @@ body {
   list-style-type: none;
   text-align: start;
   font-family: "Jersey 15";
-  font-style:normal;
+  font-style: normal;
   font-weight: 100;
-
 }
-
 
 #start-button {
   background-color: rgb(206, 141, 255);
@@ -125,8 +111,6 @@ body {
   margin: 50px;
 }
 
-
-
 /*PANTALLA DEL JUEGO*/
 
 #game-screen,
@@ -148,6 +132,16 @@ body {
   background-size: cover;
 
   border: 2px solid black;
+}
+
+#level-container {
+  border: 2px;
+  position: relative;
+  left: 385px;
+}
+
+#level-container h1 {
+  color: black;
 }
 
 #vidas-container {
@@ -178,7 +172,6 @@ body {
   margin: 5px;
   font-size: 30px;
 }
-
 
 #musica-boton {
   position: absolute;
@@ -224,7 +217,7 @@ body {
 
 #gameover-screen h3 {
   position: relative;
-  color:  rgb(206, 141, 255);
+  color: rgb(206, 141, 255);
   font-size: 45px;
   margin: 10px;
   bottom: 70px;
@@ -245,9 +238,7 @@ body {
   position: relative;
   margin: 10px;
   bottom: 60px;
-  right:10px;
-
-
+  right: 10px;
 }
 
 #endingButtons-container button {
