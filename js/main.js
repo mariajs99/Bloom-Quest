@@ -35,6 +35,14 @@ const musicaFondoNode = new Audio("./audio/fire-emblem.mp3");
 musicaFondoNode.loop = true; // La música se repite
 musicaFondoNode.volume = 0.1; // Ajusta volumen si hace falta
 
+const sonidoColisionBichos = new Audio("./audio/colisionBichos2.mp3");
+const sonidoColisionBonus = new Audio("./audio/colisionBonus.mp3");
+const sonidoColisionIngredientes = new Audio ("./audio/colisionIngredientes.mp3")
+sonidoColisionIngredientes.volume = 0.07;
+const sonidoBoton = new Audio("./audio/botonRestart.mp3");
+
+
+
 //!Variables globales del juego
 
 let recolectorObj = null; // Esto es para poder agregar el obj del recolector aqui, pero que en todo mi código yo pueda acceder a esta variable facilmente.
@@ -104,6 +112,9 @@ function gameLoop() {
     //Colisión con el personaje
     if (colision(recolectorObj, bicho)) {
       //Detecta colisiones
+      if(!esInmune) {
+      sonidoColisionBichos.play();
+      }
       bicho.desapareceBicho();
       bichosArr.splice(i, 1);
 
@@ -125,7 +136,7 @@ function gameLoop() {
   //Gestionar las colisiones con los ingredientes
   ingredientesArr.forEach((ingrediente, i) => {
     if (colision(recolectorObj, ingrediente)) {
-      //TODO console.log("¡Colisión con ingrediente!");
+      sonidoColisionIngredientes.play();
       ingrediente.desapareceIngrediente();
       ingredientesArr.splice(i, 1);
 
@@ -145,6 +156,9 @@ function gameLoop() {
   //Gestionar las colisiones con las frutas bonus
   bonusArr.forEach((eachBonus, i) => {
     if(colision(recolectorObj, eachBonus)) {
+      if(!esInmune) {
+        sonidoColisionBonus.play();
+        }
       eachBonus.desapareceFrutaBonus();
       bonusArr.splice(i, 1);
 
@@ -191,7 +205,6 @@ function activarBonus () {
 
   recolectorObj.speed += 10; //Aumentamos velocidad
   recolectorObj.node.style.filter = "brightness(1.5) saturate(2)"; // Efecto visual para saber que está en modo inmune
-
   console.log("Inmunidad y velocidad");
 
   setTimeout(() => {
@@ -255,10 +268,13 @@ function reiniciarJuego() {
 //!Event Listeners
 
 startButtonNode.addEventListener("click", () => {
+  sonidoBoton.play();
   startGame();
 });
 
 restartButtonNode.addEventListener("click", () => {
+  sonidoBoton.play();
+
   gameOverScreenNode.style.display = "none";
   gameBoxNode.style.display = "flex";
 
@@ -266,6 +282,8 @@ restartButtonNode.addEventListener("click", () => {
 });
 
 startScreenButtonNode.addEventListener("click", () => {
+  sonidoBoton.play();
+
   gameOverScreenNode.style.display = "none";
   startScreenNode.style.display = "flex";
 
@@ -281,6 +299,7 @@ document.addEventListener("keydown", (e) => {
 });
 
 musicButtonNode.addEventListener("click", () =>  {
+
   if(musicaActivada) {
     musicaFondoNode.pause();
     musicButtonNode.textContent = "🔇";

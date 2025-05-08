@@ -6,8 +6,8 @@ class FrutaBonus {
         //Crear posición aleatoria dentro del gamebox
         this.x = Math.random() * 800; // posición inicial aleatoria con respecto al ANCHO del gamebox
         this.y = Math.random() * 500; // posición inicial aleatoria con respecto a la ALTURA del gamebox
-        this.w = 60; //tamaño de los ingredientes
-        this.h = 60;
+        this.w = 70; //tamaño de los ingredientes
+        this.h = 70;
     
         // definimos el tamaño inicial de nuestros ingredientes en el gamebox
         this.node.style.width = this.w + "px";

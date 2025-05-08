@@ -7,7 +7,7 @@ body {
 
   color: white;
   font-family: "Jersey 10";
-  font-style: normal;
+  font-style:normal;
   font-weight: 400;
   font-display: swap;
   src: url(https://fonts.gstatic.com/s/jersey10/v3/GftH7vZKsggXMf9n_J5n_5jh.woff2)
@@ -17,7 +17,7 @@ body {
 /*PANTALLA DE INICIO*/
 #start-screen {
   position: relative;
-  background-image: url("../images/background.sky.avif");
+  background-image: url("../images/bgStartGame.avif");
   background-color: darkgray;
 
   width: 800px;
@@ -35,7 +35,7 @@ body {
 #teclas {
   position: absolute;
   top: 115px;
-  right: 590px;
+  right: 540px;
   border: 5px;
   border-radius: 10px;
   border-width: 1px;
@@ -44,6 +44,10 @@ body {
 
 #teclas p {
   margin: 5px;
+  font-family: "Jersey 15";
+  font-style:normal;
+  font-weight: 100;
+
 }
 
 #teclas img {
@@ -64,19 +68,28 @@ body {
 #instructions h3 {
   color: white;
   font-weight: 300;
-  font-size: 30px;
+  font-size: 35px;
   margin: 5px;
   text-align: center;
 }
 
 #instructions p {
   margin: 5px;
+  font-family: "Jersey 15";
+  font-style:normal;
+  font-weight: 100;
 }
 
 #instructions ul {
   list-style-type: none;
   text-align: start;
+  font-family: "Jersey 15";
+  font-style:normal;
+  font-weight: 100;
+  text-align;
+
 }
+
 
 #start-button {
   background-color: rgb(206, 141, 255);
@@ -131,7 +144,7 @@ body {
   overflow: hidden; /* previene que los elementos salgan visualmente del game-box */
   user-select: none; /* previene que los elementos del game-box sean resaltados al hacer click */
 
-  background-image: url("../images/background-forest.png");
+  background-image: url("../images/forest3.jpg");
   background-position: center;
   background-size: cover;
 
@@ -143,8 +156,8 @@ body {
   border-radius: 15px;
   position: absolute;
   top: 10px;
-  left: 630px;
-  padding: 3px;
+  left: 655px;
+  padding: 1px;
 }
 
 .vida {
@@ -158,13 +171,13 @@ body {
   position: absolute;
   top: 550px;
   left: 360px;
-  background-color: rgba(0, 0, 0, 0.249);
+  background-color: rgba(0, 0, 0, 0.719);
   border-radius: 10px;
 }
 
 #score-container h3 {
   margin: 5px;
-  font-size: 25px;
+  font-size: 30px;
 }
 
 
@@ -196,7 +209,7 @@ body {
   overflow: hidden; /* previene que los elementos salgan visualmente del game-box */
   user-select: none; /* previene que los elementos del game-box sean resaltados al hacer click */
 
-  background-image: url("../images/gameOver.webp");
+  background-image: url("../images/bgGameOver.webp");
   background-position: center;
   background-size: cover;
   border: 2px solid black;

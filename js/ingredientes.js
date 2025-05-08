@@ -4,8 +4,11 @@ class Ingredientes {
 
     //Alternar entre dos ingredientes
     const ingredientes = [
-      "./images/setas magicas.png",
-      "./images/hierbas.webp"];
+      "./images/planta6.png",
+      "./images/planta8.png",
+      "./images/planta7.png",
+      "./images/planta3.png",
+      "./images/planta5.png" ];
     const alternarIngredientes = Math.floor(
       Math.random() * ingredientes.length);
 
