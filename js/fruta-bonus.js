@@ -21,7 +21,18 @@ class FrutaBonus {
     
         //Para coger el nodo de la imagen e insertarlo en el juego cuando estemos en el game box
         gameBoxNode.append(this.node);
-    }
+    
+        setTimeout(() => {
+            this.desapareceFrutaBonus();
+      
+            const indexFruta = bonusArr.indexOf(this);
+            if (indexFruta !== -1) bonusArr.splice(index, 1);
+            //evito que colisione con elementos invisibles
+            // y mantengo el array de ingredientes limpio
+      
+          }, 7000);
+        }
+    
     
     desapareceFrutaBonus() {
         this.node.remove();

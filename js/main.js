@@ -12,7 +12,7 @@ const startButtonNode = document.querySelector("#start-button");
 const restartButtonNode = document.querySelector("#restart-button");
 const startScreenButtonNode = document.querySelector("#start-screen-button");
 
-const musicButtonNode = document.querySelector("#musica-boton")
+const musicButtonNode = document.querySelector("#musica-boton");
 
 //*Game-box
 
@@ -37,11 +37,11 @@ musicaFondoNode.volume = 0.1; // Ajusta volumen si hace falta
 
 const sonidoColisionBichos = new Audio("./audio/colisionBichos2.mp3");
 const sonidoColisionBonus = new Audio("./audio/colisionBonus.mp3");
-const sonidoColisionIngredientes = new Audio ("./audio/colisionIngredientes.mp3")
+const sonidoColisionIngredientes = new Audio(
+  "./audio/colisionIngredientes.mp3"
+);
 sonidoColisionIngredientes.volume = 0.07;
 const sonidoBoton = new Audio("./audio/botonRestart.mp3");
-
-
 
 //!Variables globales del juego
 
@@ -62,7 +62,14 @@ let gameIntervalId = null;
 let musicaActivada = true;
 
 let esInmune = false;
-let velocidadOriginal = 20; // Velocidad base del recolector, corresponde con la definida en su clase
+let velocidadOriginal = 5; // Velocidad base del recolector, corresponde con la definida en su clase
+
+const presionarTeclas = {
+  w: false,
+  a: false,
+  s: false,
+  d: false,
+};
 
 //!Funciones globales del juego
 
@@ -92,6 +99,16 @@ function startGame() {
 }
 
 function gameLoop() {
+  //Mover recolector
+
+  if (recolectorObj) {
+    for (const key in presionarTeclas) {
+      if (presionarTeclas[key]) {
+        recolectorObj.moverRecolector(key);
+      }
+    }
+  }
+
   // Crear bichos aleatorios
   if (Math.random() < 0.01) {
     const nuevoBicho = new Bichos(gameBoxNode);
@@ -112,18 +129,17 @@ function gameLoop() {
     //Colisión con el personaje
     if (colision(recolectorObj, bicho)) {
       //Detecta colisiones
-      if(!esInmune) {
-      sonidoColisionBichos.play();
+      if (!esInmune) {
+        sonidoColisionBichos.play();
       }
       bicho.desapareceBicho();
       bichosArr.splice(i, 1);
 
       //Condicional para hacer inmune al personaje al colisionar con los bichos por el bonus
-      if(!esInmune) {
+      if (!esInmune) {
         perderVida();
         console.log("Vidas restantes:", vidas);
       }
-      
     }
   });
 
@@ -147,7 +163,7 @@ function gameLoop() {
   });
 
   //Crear frutas bonus aleatorias
-  if(Math.random() < 0.001) {
+  if (Math.random() < 0.001) {
     const nuevoBonus = new FrutaBonus(gameBoxNode);
     bonusArr.push(nuevoBonus);
     console.log("Bonus creado:", nuevoBonus);
@@ -155,10 +171,10 @@ function gameLoop() {
 
   //Gestionar las colisiones con las frutas bonus
   bonusArr.forEach((eachBonus, i) => {
-    if(colision(recolectorObj, eachBonus)) {
-      if(!esInmune) {
+    if (colision(recolectorObj, eachBonus)) {
+      if (!esInmune) {
         sonidoColisionBonus.play();
-        }
+      }
       eachBonus.desapareceFrutaBonus();
       bonusArr.splice(i, 1);
 
@@ -182,7 +198,6 @@ function colision(recolectorObj, elementosQueColisionan) {
   );
 }
 
-
 function perderVida() {
   if (vidas <= 0) return;
 
@@ -198,8 +213,8 @@ function perderVida() {
   }
 }
 
-function activarBonus () {
-  if(esInmune) return; //Para no volver a activar el efecto si ya está activo
+function activarBonus() {
+  if (esInmune) return; //Para no volver a activar el efecto si ya está activo
 
   esInmune = true;
 
@@ -210,14 +225,9 @@ function activarBonus () {
   setTimeout(() => {
     esInmune = false;
     recolectorObj.speed = velocidadOriginal; //Para que vuelva a su velocidad base
-    recolectorObj.node.style.filter = "none"; 
+    recolectorObj.node.style.filter = "none";
   }, 5000); //Dura 5 segundos el bonus activo
 }
-
-
-
-
-
 
 function gameOver() {
   clearInterval(gameIntervalId);
@@ -230,7 +240,6 @@ function gameOver() {
   musicaFondoNode.pause();
   musicaFondoNode.currentTime = 0; // Reinicia la canción
 }
-
 
 function limpiarJuego() {
   //Mostrar de nuevo el sistema de vidas
@@ -251,10 +260,8 @@ function limpiarJuego() {
   ingredientesArr.forEach((ingrediente) => ingrediente.desapareceIngrediente());
   ingredientesArr = [];
 
-  bonusArr.forEach(bonus => bonus.desapareceFrutaBonus());
+  bonusArr.forEach((bonus) => bonus.desapareceFrutaBonus());
   bonusArr = [];
-
-
 }
 
 function reiniciarJuego() {
@@ -292,18 +299,33 @@ startScreenButtonNode.addEventListener("click", () => {
 
 document.addEventListener("keydown", (e) => {
   const key = e.key.toLowerCase();
+  if (key in presionarTeclas) {
+    presionarTeclas[key] = true;
+    e.preventDefault(); // Para evitar el scroll, p.e.
+  }
+});
+
+document.addEventListener("keyup", (e) => {
+  const key = e.key.toLowerCase();
+  if (key in presionarTeclas) {
+    presionarTeclas[key] = false;
+    e.preventDefault();
+  }
+});
+/*
+document.addEventListener("keydown", (e) => {
+  const key = e.key.toLowerCase();
 
   if (["w", "a", "s", "d"].includes(key) && recolectorObj) {
     recolectorObj.moverRecolector(key);
   }
 });
-
-musicButtonNode.addEventListener("click", () =>  {
-
-  if(musicaActivada) {
+*/
+musicButtonNode.addEventListener("click", () => {
+  if (musicaActivada) {
     musicaFondoNode.pause();
     musicButtonNode.textContent = "🔇";
-  }else {
+  } else {
     musicaFondoNode.play();
     musicButtonNode.textContent = "🔊";
   }
@@ -316,11 +338,11 @@ musicButtonNode.addEventListener("click", () =>  {
 - ////Personaje (x, y, h, w, speed, nodo)
 - ////Bichos (x, y, h, w, speed, nodo)
 - ////Ingredientes (x, y, h, w, speed, nodo)
-- Bonus (x, y, h, w, speed, nodo)
+- ////Bonus (x, y, h, w, speed, nodo)
 
 - ////Colisión entre personaje y bichos
 - ////Colisión entre personaje e ingredientes
-- Colisión entre personaje y bonus
+- ////Colisión entre personaje y bonus
 
 - ////Movimiento del personaje
 - ////Bichos que aparecen(spawn)
@@ -329,18 +351,22 @@ musicButtonNode.addEventListener("click", () =>  {
 - ////Ingredientes que aparecen(spawn)
 - ////Ingredientes que desaparecen(despawn)
 
-- Fruta bonus que aparecen(spawn)
-- Fruta bonus que desaparecen(despawn)
+- ////Fruta bonus que aparecen(spawn)
+- ////Fruta bonus que desaparecen(despawn)
 
 - ////Game-over
-- Reiniciar
+- ////Reiniciar
 - ////Score 
 
 
-Bonus:
+////Bonus:
 
-- Hacer que el personaje se vuelva inmune al coger la fruta Bonus
-- Hacer que el personaje corra más rápido al coger la fruta Bonus
+- ////Hacer que el personaje se vuelva inmune al coger la fruta Bonus
+- ////Hacer que el personaje corra más rápido al coger la fruta Bonus
+
+////Nuevo bonus
+
+- ////Hacer movimiento de las teclas más suave, sin parones al saltar de tecla.
 
 
 

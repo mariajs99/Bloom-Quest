@@ -2,7 +2,8 @@ class Bichos {
   constructor(gameBoxNode) {
     this.node = document.createElement("img");
 
-    const distintosBichos = ["./images/avispa2.png", "./images/spider.png", "./images/mantis.png"];
+    const distintosBichos = ["./images/avispa2.png", "./images/spider.png", 
+      "./images/mantis.png", "./images/escorpion.png"];
     const alternarBichos = Math.floor(Math.random() * distintosBichos.length);
     this.node.src = distintosBichos[alternarBichos];
 
