@@ -24,7 +24,7 @@
 
 <br>
 
- - <img src="./images/recollectorWithBonus.png" alt="Screenshot" width="150"/>  <br> This is the Recollector when takes the bonus.
+ <img src="./images/recollectorWithBonus.png" alt="Screenshot" width="150"/>  <br> This is the Recollector when takes the bonus.
 
 <br>
 
