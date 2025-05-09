@@ -4,8 +4,11 @@
 
 # Description
 
-Bloom Quest is a PC game where you play as a collector who crafts potions using magical ingredients found in an enchanted forest. You can move freely across the screen, collecting cute magical fruits and vegetables that appear randomly and vanish after a few seconds. While gathering ingredients, you must avoid insects entering from the right side. Occasionally, a special bonus fruit will appear, granting temporary immunity and a speed boost. As time passes, the game becomes more challenging, with both insects and the player moving faster. The game ends when you loose all your lives.
+ Bloom Quest is a PC game where you play as a collector who crafts potions using magical ingredients found in an enchanted forest. You can move freely across the screen, collecting cute magical fruits and vegetables that appear randomly and vanish after a few seconds. While gathering ingredients, you must avoid insects entering from the right side. Occasionally, a special bonus fruit will appear, granting temporary immunity and a speed boost. As time passes, the game becomes more challenging, with both insects and the player moving faster. The game ends when you loose all your lives.
+ 
+ <img src="./images/personaje.png" alt="Screenshot" width="150"/>
 
+<br>
 
 # Main Functionalities (also DOM)
 
@@ -18,6 +21,12 @@ Bloom Quest is a PC game where you play as a collector who crafts potions using 
 - Difficulty scaling: Game difficulty increases over time (faster enemies and player). You can know which level you are in at the top of the screen.
 - Game Over: When the lives reach 0, the Game Over screen appears with a reset button and a button to return to the home screen.
 - Music and sound effects: Background music is added to the game, along with sound effects triggered by collisions and button presses.
+
+<br>
+
+ - <img src="./images/recollectorWithBonus.png" alt="Screenshot" width="150"/>  <br> This is the Recollector when takes the bonus.
+
+<br>
 
 
 # Backlog Functionalities
@@ -40,8 +49,20 @@ Bloom Quest is a PC game where you play as a collector who crafts potions using 
 # States
 
 - Start Screen
+
+<img src="./images/startScreen (2).png" alt="Game Logo" width="300"/>
+
 - Game Screen
+
+<img src="./images/gameScreen.png" alt="Game Logo" width="300"/>
+
 - Game Over Screen
+
+<img src="./images/gameOverScreen.png" alt="Game Logo" width="300"/>
+
+<br>
+<br>
+
 
 # Proyect Structure
 
